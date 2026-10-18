@@ -1,6 +1,6 @@
 # Portfolio de Ciberseguridad — Carlos López Urbaneja
 
-Proyectos **propios**, montados y probados de principio a fin en un laboratorio casero: detección de ataques con un SIEM, triaje automático de alertas con tickets e IA, y agentes de IA diseñados con criterios de seguridad.
+Proyectos **propios**, montados y probados de principio a fin en un laboratorio casero: detección de ataques con un SIEM, triaje automático de alertas con tickets e IA, agentes de IA diseñados con criterios de seguridad y transcripción automática de llamadas.
 
 Cada proyecto se ha probado con un caso real y está documentado con una guía completa y una guía rápida.
 
@@ -16,6 +16,8 @@ Laboratorio en máquinas virtuales (red aislada) donde **Wazuh** vigila Windows 
 
 **Herramientas:** VirtualBox · Kali Linux · Wazuh 4.14.8 · Windows 10 + Sysmon · Ubuntu · Metasploitable 2 · n8n (Docker) · Jira Cloud · Groq
 
+Repositorio del proyecto: [wazuh-n8n-jira-soc-automation](https://github.com/Ex-1217/wazuh-n8n-jira-soc-automation)
+
 ![Laboratorio SOC](Laboratorio_SOC.png)
 
 ---
@@ -26,7 +28,7 @@ Cada día revisan las tres cuentas, clasifican el correo nuevo (publicidad, requ
 
 **Prueba real:** correo trampa con instrucciones ocultas para la IA → marcado como sospechoso y sin respuesta (defensa ante *prompt injection*).
 
-**Herramientas:** n8n (Docker) · Gemini 2.5 Flash · Gmail API (OAuth) · Microsoft Graph · Entra ID
+**Herramientas:** n8n (Docker) · Groq (openai/gpt-oss-120b) · Gmail API (OAuth) · Microsoft Graph · Entra ID
 
 ![Agentes de correo](Agentes_correo.png)
 
@@ -34,11 +36,23 @@ Cada día revisan las tres cuentas, clasifican el correo nuevo (publicidad, requ
 
 ## 🤖 Asistente personal: pregunta a tus PDF
 
-Lee los documentos de una carpeta de Google Drive y responde en un chat citando el documento. Si algo no está, responde «No localizado»: **no inventa** (sistema RAG con control de alucinaciones).
+Lee los documentos de una carpeta de Google Drive y responde en un chat citando el documento. Si algo no está, responde «No localizado»: **no inventa** (sistema RAG con control de alucinaciones). Los vectores se calculan **en el propio PC** con Ollama.
 
-**Herramientas:** n8n (Docker) · Google Drive · Gemini · Embeddings · Vector Store
+**Herramientas:** n8n (Docker) · Google Drive · Groq · Ollama (nomic-embed-text) · Vector Store
 
 ![Asistente personal](Asistente_personal.png)
+
+---
+
+## 📞 Transcriptor automático de llamadas
+
+Cada llamada del móvil se graba sola, se sube a Google Drive y, en un minuto, **n8n** la convierte con **ffmpeg**, la transcribe con **Whisper** y guarda el texto junto al audio. Sin tocar nada.
+
+**Prueba real:** llamada real del móvil → grabación con las dos voces → transcripción en Drive en menos de dos minutos.
+
+**Herramientas:** Android · Cube ACR · Autosync · Google Drive · n8n (Docker) · ffmpeg · Groq Whisper
+
+![Transcriptor de llamadas](Transcriptor_llamadas.png)
 
 ---
 
